@@ -15,10 +15,13 @@ mix.autoload({
     moment: 'moment'
 });
 
-mix.setPublicPath('./static')
-    .setResourceRoot('./')
-    .js('assets/js/theme.js', './')
-    .sass('assets/sass/theme.scss', './');
+mix.setPublicPath('./static/')
+    .setResourceRoot('/')
+    .js('assets/js/theme.js', './js/theme.min.js')
+    // .minify('./static/js/theme.js')
+    .sass('assets/sass/theme.scss', './css/theme.min.css')
+    // .minify('./static/css/theme.css')
+    .sourceMaps(true, 'source-map');
 
 // Full API
 // mix.js(src, output);

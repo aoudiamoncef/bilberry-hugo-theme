@@ -44,14 +44,19 @@ disqusShortname = ""
   # Enable / Disable comments on the articles via commento
   commentoJsURL = "https://commento.lednerb.de/js/commento.js"
 
-  # Enable / Disable Utterances comments
-  utterances    = true
-  utterancesJsUrl     = "https://utteranc.es/client.js"
-  utterancesRepository    = "Lednerb/bilberry-hugo-theme"
-  utterancesIssueTerm   = "pathname"
-  utterancesLabel   = "Comment"
-  utterancesTheme = "github-light"
-  utterancesCrossOrigin = "anonymous"
+  # Enable / Disable Giscus comments
+  giscus             = true
+  giscusJsUrl        = "https://giscus.app/client.js"
+  giscusRepository   = "Lednerb/bilberry-hugo-theme"
+  giscusRepositoryId = "R_kgDOGX153A"
+  giscusMapping      = "pathname"
+  giscusCategory     = "Announcements"
+  giscusCategoryId   = "DIC_kwDOGX153M4B_2Vz"
+  giscusTheme        = "light"
+  giscusReactions    = "1"
+  giscusEmitMetadata = "0"
+  giscusLanguage     = "en"
+  giscusCrossOrigin  = "anonymous"
 
   # Media configuration
     # let hugo automatically resize and crop your images to the correct sizes

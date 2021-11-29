@@ -7,9 +7,6 @@ require('tooltipster');
 require('magnific-popup');
 
 let ClipboardJs = require('clipboard')
-let hljs = require('highlight.js');
-let moment = require('moment');
-require("moment/min/locales.min");
 
 // Add ClipboardJs to enable copy button functionality
 new ClipboardJs('.copy-button', {
@@ -20,11 +17,11 @@ new ClipboardJs('.copy-button', {
     e.clearSelection()
 });
 
-$(document).ready(function () {
+$(function () {
 
-    // Add copy button and tooltip to each code-block
-    $('pre').each(function () {
-        $(this).append('<button class="copy-button tooltip" title="Copied!"><i class="far fa-fw fa-copy"></i></button>')
+    // Add copy button and tooltip to each highlight block
+    $('.highlight').each(function () {
+        $(this).append('<button class="copy-button tooltip" title="COPIED"><i class="far fa-clipboard"></i></button>')
     });
 
     $('.tooltip').tooltipster({
@@ -46,44 +43,33 @@ $(document).ready(function () {
     });
 
     // Nav-Toggle
-    $(".toggler").click(function () {
+    $(".toggler").on("click", function () {
         $("nav").slideToggle();
         $("#search").autocomplete("val", "");
     });
 
-    // Commento support to block search focus when hitting the S key
-    blockSearchFocusCommento = false;
+    // Giscus support to block search focus when hitting the S key
+    blockSearchFocusGiscus = false;
 
-    $('#commento').focusin(function() {
-        blockSearchFocusCommento = true;
+    $('#giscus').on("focusin", function() {
+        blockSearchFocusGiscus = true;
     });
 
-    $('#commento').focusout(function() {
-        blockSearchFocusCommento = false;
-    });
-
-    // Utterances support to block search focus when hitting the S key
-    blockSearchFocusUtterances = false;
-
-    $('#utterances').focusin(function() {
-        blockSearchFocusUtterances = true;
-    });
-
-    $('#utterances').focusout(function() {
-        blockSearchFocusUtterances = false;
+    $('#giscus').on("focusout", function() {
+        blockSearchFocusGiscus = false;
     });
 
     // Keyboard-Support
-    $(document).keyup(function (e) {
-        if (e.keyCode === 27) {
+    $(document).on("keyup", function (e) {
+        if (e.code == "Escape") {
             if (!$("nav").hasClass('permanentTopNav'))
                 $("nav").slideUp();
             $("#search").autocomplete("val", "");
         }
-        else if (e.keyCode === 83 && !blockSearchFocusCommento || !blockSearchFocusUtterances) {
+        else if (e.code == "KeyS" && !blockSearchFocusGiscus) {
             if (!$("nav").hasClass('permanentTopNav'))
                 $("nav").slideDown();
-            $("#search").focus();
+            $("#search").trigger("focus");
         }
     })
 
@@ -97,7 +83,7 @@ $(document).ready(function () {
 
     // Magnific Popup for images within articles to zoom them
     // Rendered with Markdown
-    $('p img').magnificPopup({
+    $('zoomable').magnificPopup({
         type: "image",
         image: {
             verticalFit: true,
@@ -195,28 +181,18 @@ $(document).ready(function () {
                             return "<span class='empty'>" + $('#algolia-search-noSearchResults').val() + "</span>"
                         },
                         footer: function () {
-                            return '<div class="branding">Powered by <img src="' + $('meta[name=siteBaseUrl]').attr("content") + '/algolia-logo-light.svg" alt="algolia" /></div>'
+                            return '<div class="branding">Powered by <img src="' + $('meta[name=siteBaseUrl]').attr("content") + '/images/logos/algolia-logo-light.svg" alt="algolia" /></div>'
                         }
                     },
                 }
             ])
-            .on('autocomplete:selected', function (event, suggestion, dataset) {
+            .on('autocomplete:selected', function (suggestion) {
                 window.location = (suggestion.url);
             })
             .keypress(function (event, suggestion) {
-                if (event.which == 13) {
+                if (event.code == "Enter") {
                     window.location = (suggestion.url);
                 }
             });
     }
-
-    // MomentJS
-    language = $('html').attr('lang');
-    moment.locale(language);
-    $('.moment').each(function() {
-        date = $(this).text()
-        $(this).text(moment(date).format('LL'))
-    });
 });
-
-hljs.initHighlightingOnLoad();

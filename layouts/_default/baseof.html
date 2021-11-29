@@ -81,7 +81,7 @@
 
     {{ partial "favicon.html" . }}
 
-    <script src="{{ "modernizr-simple.js" | relURL }}"></script>
+    <script src="{{ "/js/modernizr-simple.min.js" | relURL }}"></script>
 
     {{ if .RelPermalink }}
     <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
@@ -94,7 +94,7 @@
     <link rel="canonical" href="{{ .Permalink }}">
     {{ end }}
 
-    <link rel="stylesheet" href="{{ "theme.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "/css/theme.min.css" | absURL }}">
 
     {{ partial "twitter-card.html" . }}
 
@@ -124,7 +124,7 @@
     {{ end }}
 
 
-    <script type="text/javascript" src="{{ "theme.js" | absURL }}"></script>
+    <script type="text/javascript" src="{{ "/js/theme.min.js" | absURL }}"></script>
 
     {{ if isset .Site.Params "js_modules" }}
     {{ range .Site.Params.js_modules }}
