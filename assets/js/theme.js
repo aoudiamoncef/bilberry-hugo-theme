@@ -186,11 +186,11 @@ $(function () {
                     },
                 }
             ])
-            .on('autocomplete:selected', function (suggestion) {
+            .on('autocomplete:selected', function (event, suggestion, dataset) {
                 window.location = (suggestion.url);
             })
             .keypress(function (event, suggestion) {
-                if (event.code == "Enter") {
+                if (event.code === "Enter") {
                     window.location = (suggestion.url);
                 }
             });
